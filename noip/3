@@ -1,0 +1,64 @@
+/*************************************************************************
+	> File Name: paint.c
+	> Author: ChongH
+	> Mail: 304451676@qq.com
+	> Created Time: 2019年01月06日 星期日 12时54分02秒
+ ************************************************************************/
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#define COLOR 3
+#define MAX 100
+long long paintWallCounts(int wallsize) {
+    // 此种情况如何分配内存空间
+    //int *f[COLOR][COLOR] = (int *[COLOR][COLOR])malloc(sizeof(char **) * (wallsize + 1));
+    int n, ans = 0;
+    scanf("%d", &n);
+    int f[MAX][COLOR][COLOR] = {0};
+    int temp[COLOR][COLOR] = {
+        1, 0, 0,
+        0, 1, 0,
+        0, 0, 1
+    };
+    // 定义初值 f[1],f[2]
+    for (int i = 0; i < COLOR; i++) {
+        for (int j = 0; j < COLOR; j++) {
+            if (i == j) {
+                f[1][i][j] = 1;
+            }
+        }
+    }
+    for (int i = 0; i < COLOR; i++) {
+        for (int j = 0; j < COLOR; j++) {
+            if (i != j) f[2][i][j] = 1;
+        }
+    }
+    
+    for (int k = 3; k <= n; k++) {
+        for (int i = 0; i < COLOR; i++) {
+            for (int j = 0; j < COLOR; j++) {
+                if (i == j) continue;
+                for (int m = 0; m < COLOR; m++) {
+                    if (m == j) continue;
+                    f[k][i][j] += f[k - 1][i][m];
+                }   
+            }
+        }
+    }
+    for (int i = 0; i < COLOR; i++) {
+        for (int j = 0; j < COLOR; j++) {
+            if (i == j) continue;
+            ans += f[n][i][j];
+        }   
+    }
+    printf("%d\n", ans);
+ 
+}
+
+
+int main() {
+    
+
+    return 0;
+}
