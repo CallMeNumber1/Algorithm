@@ -12,7 +12,6 @@ struct Node {
     int key;                        // 是否独立成词
     struct Node *next[NUM];         // 26个小写字母，26条边
 };
-int ans = 0;
 Node *newNode() {
     Node *node = (Node *)malloc(sizeof(Node));          // 也可以直接使用calloc，不必手写循环
     for (int i = 0; i < NUM; i++) {
